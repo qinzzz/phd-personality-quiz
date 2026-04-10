@@ -6,61 +6,345 @@
 <title>博士人格图鉴 · 12种濒危物种</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f9f9f7; color: #1a1a1a; min-height: 100vh; }
-.wrap { max-width: 620px; margin: 0 auto; padding: 2rem 1rem 3rem; }
-.hd { text-align: center; margin-bottom: 2rem; }
-.hd .sub { font-size: 12px; color: #888; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
-.hd h1 { font-family: 'Noto Serif SC', 'SimSun', serif; font-size: 24px; font-weight: 500; line-height: 1.4; }
-.prog-bg { height: 2px; background: #e5e5e5; border-radius: 2px; margin-bottom: 2rem; overflow: hidden; }
-.prog-fill { height: 100%; background: #534AB7; border-radius: 2px; transition: width 0.4s ease; }
-.qcard { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
-.qnum { font-size: 12px; color: #aaa; margin-bottom: 0.4rem; letter-spacing: 0.04em; }
-.qtext { font-family: 'Noto Serif SC', 'SimSun', serif; font-size: 17px; font-weight: 500; line-height: 1.65; margin-bottom: 1.25rem; }
-.opts { display: flex; flex-direction: column; gap: 8px; }
-.opt { display: block; width: 100%; text-align: left; padding: 11px 14px; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; line-height: 1.5; transition: transform 0.1s; background: #f5f5f3; border: 0.5px solid #e0e0e0; color: #1a1a1a; }
-.opt:hover { background: #eeeeeb; }
+
+body {
+  font-family: -apple-system, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #fff;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* Progress bar — thin stripe at very top */
+.prog-stripe {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: #eee;
+  z-index: 100;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #52916A, #9B8FD0);
+  transition: width 0.4s ease;
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 24px 0;
+}
+.logo-dots {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  width: 28px;
+  margin-right: 10px;
+}
+.logo-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+}
+.dot-teal   { background: #40916C; }
+.dot-blue   { background: #5B9BD5; }
+.dot-yellow { background: #F5C842; }
+.dot-purple { background: #9B8FD0; }
+.site-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.01em;
+}
+
+/* Main wrap */
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* Quiz header */
+.quiz-title {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.quiz-title h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.quiz-title p {
+  font-size: 15px;
+  color: #999;
+  letter-spacing: 0.05em;
+}
+
+/* Question block */
+.qblock {
+  margin-bottom: 52px;
+}
+.qtext {
+  font-size: 19px;
+  font-weight: 600;
+  color: #2D2D2D;
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+
+/* Options */
+.opts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  border: 1.5px solid #E8E8E8;
+  background: #FAFAFA;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: inherit;
+  color: #444;
+  line-height: 1.5;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  width: 100%;
+}
+.opt:hover {
+  border-color: #A8C9BB;
+  background: #F0F7F4;
+}
 .opt:active { transform: scale(0.99); }
-.opt.selected { background: #EEEDFE; border: 1.5px solid #534AB7; color: #26215C; }
-.navrow { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; }
-.nbtn { padding: 9px 22px; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; border: 0.5px solid #ccc; background: #fff; color: #1a1a1a; transition: background 0.15s, transform 0.1s; }
-.nbtn:hover { background: #f5f5f3; }
+.opt.selected {
+  border-color: #52916A;
+  background: #EAF3EE;
+  color: #3D7A58;
+}
+.opt-letter {
+  font-size: 12px;
+  font-weight: 700;
+  color: #BBB;
+  width: 20px;
+  flex-shrink: 0;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.opt.selected .opt-letter { color: #52916A; }
+
+/* Nav row */
+.navrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid #F0F0F0;
+}
+.qct {
+  font-size: 13px;
+  color: #BBB;
+  letter-spacing: 0.05em;
+}
+.nbtn {
+  padding: 11px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid #DDD;
+  background: #fff;
+  color: #666;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.nbtn:hover { background: #F5F5F5; border-color: #CCC; }
 .nbtn:active { transform: scale(0.98); }
-.nbtn:disabled { opacity: 0.3; cursor: default; }
-.nbtn.pri { background: #534AB7; color: #EEEDFE; border-color: #534AB7; }
-.nbtn.pri:hover { background: #3C3489; border-color: #3C3489; }
-.nbtn.pri:disabled { background: #f0f0f0; color: #aaa; border-color: #e0e0e0; }
-.qct { font-size: 13px; color: #aaa; }
+.nbtn:disabled { opacity: 0.3; cursor: default; transform: none; }
+.nbtn.pri {
+  background: #52916A;
+  color: #fff;
+  border-color: #52916A;
+}
+.nbtn.pri:hover { background: #3D7A58; border-color: #3D7A58; }
+.nbtn.pri:disabled {
+  background: #E0E0E0;
+  color: #AAA;
+  border-color: #E0E0E0;
+}
 
-.reveal-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
-.dim-section-title { font-size: 12px; color: #aaa; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
-.dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.dim-card { background: #f5f5f3; border-radius: 8px; padding: 10px 12px; }
-.dim-label { font-size: 11px; color: #aaa; margin-bottom: 4px; }
-.dim-bar-row { display: flex; align-items: center; gap: 8px; }
-.dim-pole-l { font-size: 12px; color: #888; width: 48px; text-align: right; flex-shrink: 0; }
-.dim-pole-r { font-size: 12px; color: #888; width: 48px; text-align: left; flex-shrink: 0; }
-.dim-track { flex: 1; height: 4px; background: #ddd; border-radius: 2px; position: relative; }
-.dim-dot { position: absolute; top: 50%; width: 10px; height: 10px; background: #534AB7; border-radius: 50%; transform: translate(-50%, -50%); }
-.dim-value { font-size: 13px; font-weight: 500; color: #3C3489; margin-top: 4px; text-align: center; }
+/* ── Result page ── */
+.result-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
 
-.reveal-arrow { text-align: center; font-size: 20px; color: #ccc; margin: 0.5rem 0; }
+/* Dimension bars */
+.dims-section {
+  margin-bottom: 48px;
+}
+.dims-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #BBB;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.dim-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 20px;
+}
+.dim-pole {
+  font-size: 13px;
+  color: #999;
+  width: 60px;
+  flex-shrink: 0;
+}
+.dim-pole.right { text-align: right; }
+.dim-track {
+  flex: 1;
+  height: 6px;
+  background: #EEEEEE;
+  border-radius: 3px;
+  position: relative;
+  margin: 0 12px;
+}
+.dim-fill-left {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #52916A, #9B8FD0);
+}
+.dim-dot {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border: 2.5px solid #52916A;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+.dim-chosen {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
 
-.res-hero { text-align: center; padding: 1.5rem 0 0; }
-.res-pretitle { font-size: 11px; color: #aaa; letter-spacing: 0.12em; margin-bottom: 1.5rem; }
-.res-emoji-wrap { position: relative; display: inline-block; margin-bottom: 1rem; }
-.res-emoji { font-size: 64px; display: block; line-height: 1; }
-.res-glow { position: absolute; inset: -8px; border-radius: 50%; background: #EEEDFE; z-index: -1; }
-.res-name { font-family: 'Noto Serif SC', 'SimSun', serif; font-size: 30px; font-weight: 500; margin-bottom: 0.75rem; }
-.res-desc { font-size: 15px; line-height: 1.8; color: #555; max-width: 440px; margin: 0 auto 2rem; }
-.res-special { display: inline-block; font-size: 11px; background: #EEEDFE; color: #3C3489; border-radius: 8px; padding: 3px 10px; margin-bottom: 0.75rem; letter-spacing: 0.06em; }
+/* Reveal arrow */
+.reveal-arrow {
+  text-align: center;
+  font-size: 22px;
+  color: #DDD;
+  margin: 32px 0;
+}
 
-.restart-row { text-align: center; margin-top: 1.5rem; }
-.rbtn { padding: 10px 28px; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; border: 0.5px solid #ccc; background: #fff; color: #1a1a1a; transition: background 0.15s; }
-.rbtn:hover { background: #f5f5f3; }
+/* Result hero */
+.res-hero {
+  text-align: center;
+  padding: 40px 0 0;
+}
+.res-pretitle {
+  font-size: 12px;
+  color: #BBB;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.res-emoji-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.res-emoji {
+  font-size: 72px;
+  display: block;
+  line-height: 1;
+}
+.res-glow {
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #EBF9F8 0%, transparent 70%);
+  z-index: -1;
+}
+.res-special {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #52916A, #9B8FD0);
+  color: #fff;
+  border-radius: 20px;
+  padding: 4px 14px;
+  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+}
+.res-name {
+  font-size: 34px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.res-desc {
+  font-size: 16px;
+  line-height: 1.85;
+  color: #666;
+  max-width: 480px;
+  margin: 0 auto 40px;
+}
+
+/* Restart */
+.restart-row {
+  text-align: center;
+  padding-top: 8px;
+}
+.rbtn {
+  padding: 12px 36px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1.5px solid #DDD;
+  background: #fff;
+  color: #666;
+  transition: background 0.15s;
+}
+.rbtn:hover { background: #F5F5F5; }
 </style>
 </head>
 <body>
-<div class="wrap" id="app"></div>
+
+<div class="prog-stripe"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+
+<header class="site-header">
+  <div class="logo-dots">
+    <span class="dot-teal"></span>
+    <span class="dot-blue"></span>
+    <span class="dot-yellow"></span>
+    <span class="dot-purple"></span>
+  </div>
+  <span class="site-name">博士人格图鉴</span>
+</header>
+
+<div id="app"></div>
+
 <script>
 const DIMS = [
   { id:'drive',  label:'学术动力',  neg:'外驱型', pos:'内燃型', negDesc:'有人推才动', posDesc:'自己点火' },
@@ -169,29 +453,39 @@ function getResult() {
   return best;
 }
 
+function updateProg(pct) {
+  document.getElementById('prog').style.width = pct + '%';
+}
+
 function render() {
   const q = QS[cur];
   const sel = answers[cur];
   const pct = Math.round((cur / QS.length) * 100);
+  updateProg(pct);
+
   document.getElementById('app').innerHTML = `
-    <div class="hd">
-      <div class="sub">博士人格图鉴 · 12种濒危物种</div>
-      <h1>测测你是哪种博士生</h1>
-    </div>
-    <div class="prog-bg"><div class="prog-fill" style="width:${pct}%"></div></div>
-    <div class="qcard">
-      <div class="qnum">Q${cur+1} / ${QS.length}</div>
-      <div class="qtext">${q.q}</div>
-      <div class="opts">
-        ${q.opts.map((o,i) => `<button class="opt${sel===i?' selected':''}" data-i="${i}">${LABELS[i]}. ${o.text}</button>`).join('')}
+    <div class="wrap">
+      <div class="quiz-title">
+        <h1>测测你是哪种博士生</h1>
+        <p>12种濒危物种 · 总共 ${QS.length} 题</p>
       </div>
-    </div>
-    <div class="navrow">
-      <button class="nbtn" id="prev" ${cur===0?'disabled':''}>← 上一题</button>
-      <span class="qct">${cur+1} / ${QS.length}</span>
-      ${cur < QS.length-1
-        ? `<button class="nbtn pri" id="next" ${sel===undefined?'disabled':''}>下一题 →</button>`
-        : `<button class="nbtn pri" id="sub" ${sel===undefined?'disabled':''}>查看结果 →</button>`}
+      <div class="qblock">
+        <div class="qtext">${q.q}</div>
+        <div class="opts">
+          ${q.opts.map((o,i) => `
+            <button class="opt${sel===i?' selected':''}" data-i="${i}">
+              <span class="opt-letter">${LABELS[i]}</span>
+              ${o.text}
+            </button>`).join('')}
+        </div>
+      </div>
+      <div class="navrow">
+        <button class="nbtn" id="prev" ${cur===0?'disabled':''}>← 上一题</button>
+        <span class="qct">${cur+1} / ${QS.length}</span>
+        ${cur < QS.length-1
+          ? `<button class="nbtn pri" id="next" ${sel===undefined?'disabled':''}>下一题 →</button>`
+          : `<button class="nbtn pri" id="sub" ${sel===undefined?'disabled':''}>查看结果 →</button>`}
+      </div>
     </div>`;
 
   document.querySelectorAll('.opt').forEach(btn => {
@@ -212,47 +506,47 @@ function render() {
 }
 
 function renderResult() {
+  updateProg(100);
   const key = getResult();
   const t = TYPES[key];
+
   const dimRows = DIMS.map(d => {
     const raw = dimScores[d.id];
     const pct = Math.min(Math.max(Math.round((raw + 6) / 12 * 100), 5), 95);
     const chosen = raw >= 0 ? d.pos : d.neg;
     const chosenDesc = raw >= 0 ? d.posDesc : d.negDesc;
     return `
-      <div class="dim-card">
-        <div class="dim-label">${d.label}</div>
-        <div class="dim-bar-row">
-          <span class="dim-pole-l">${d.neg}</span>
-          <div class="dim-track"><div class="dim-dot" style="left:${pct}%"></div></div>
-          <span class="dim-pole-r">${d.pos}</span>
+      <div class="dim-row">
+        <span class="dim-pole">${d.neg}</span>
+        <div class="dim-track">
+          <div class="dim-fill-left" style="width:${pct}%"></div>
+          <div class="dim-dot" style="left:${pct}%"></div>
         </div>
-        <div class="dim-value">${chosen} · ${chosenDesc}</div>
-      </div>`;
+        <span class="dim-pole right">${d.pos}</span>
+      </div>
+      <div class="dim-chosen">${d.label} · ${chosen}（${chosenDesc}）</div>`;
   }).join('');
 
   document.getElementById('app').innerHTML = `
-    <div class="hd">
-      <div class="sub">测试结果</div>
-      <h1>你的博士人格画像</h1>
-    </div>
-    <div class="reveal-card">
-      <div class="dim-section-title">六维度分析</div>
-      <div class="dim-grid">${dimRows}</div>
-    </div>
-    <div class="reveal-arrow">↓</div>
-    <div class="res-hero">
-      ${t.special ? '<div class="res-special">⭐ 隐藏类型解锁</div>' : ''}
-      <div class="res-pretitle">综合你的六维画像，你是……</div>
-      <div class="res-emoji-wrap">
-        <div class="res-glow"></div>
-        <span class="res-emoji">${t.emoji}</span>
+    <div class="result-wrap">
+      <div class="dims-section">
+        <div class="dims-label">六维度分析</div>
+        ${dimRows}
       </div>
-      <div class="res-name">${t.name}</div>
-      <div class="res-desc">${t.desc}</div>
-    </div>
-    <div class="restart-row">
-      <button class="rbtn" id="restart">重新测试</button>
+      <div class="reveal-arrow">↓</div>
+      <div class="res-hero">
+        ${t.special ? '<div class="res-special">⭐ 隐藏类型解锁</div>' : ''}
+        <div class="res-pretitle">综合你的六维画像，你是……</div>
+        <div class="res-emoji-wrap">
+          <div class="res-glow"></div>
+          <span class="res-emoji">${t.emoji}</span>
+        </div>
+        <div class="res-name">${t.name}</div>
+        <div class="res-desc">${t.desc}</div>
+      </div>
+      <div class="restart-row">
+        <button class="rbtn" id="restart">重新测试</button>
+      </div>
     </div>`;
 
   document.getElementById('restart').addEventListener('click', () => {
