@@ -443,15 +443,19 @@ function applyDims(idx, sign) {
 }
 
 function getResult() {
-  const userVec = DIMS.map(d => dimScores[d.id] >= 0 ? 1 : -1);
-  let best = null, bestDist = 99, bestAlign = -Infinity;
+  let best = null, bestDist = Infinity, bestAlign = -Infinity;
   Object.entries(TYPES).forEach(([key, t]) => {
-    const typeVec = DIMS.map(d => t.dims[d.id]);
-    // Primary: fewest mismatched dimensions
-    const dist = userVec.reduce((acc, v, i) => acc + (v !== typeVec[i] ? 1 : 0), 0);
-    // Tiebreaker: sum of score magnitudes on dimensions that agree (stronger = better)
-    const align = DIMS.reduce((acc, d, i) => {
-      return userVec[i] === typeVec[i] ? acc + Math.abs(dimScores[d.id]) : acc;
+    // Primary distance: sum of score magnitudes where user opposes this type.
+    // e.g. social=-3 against a type expecting social=+1 adds 3 penalty.
+    // A near-zero score adds almost no penalty in either direction.
+    const dist = DIMS.reduce((acc, d) => {
+      const s = dimScores[d.id], tgt = t.dims[d.id];
+      return acc + (s * tgt < 0 ? Math.abs(s) : 0);
+    }, 0);
+    // Tiebreaker: sum of score magnitudes where user agrees with this type.
+    const align = DIMS.reduce((acc, d) => {
+      const s = dimScores[d.id], tgt = t.dims[d.id];
+      return acc + (s * tgt > 0 ? Math.abs(s) : 0);
     }, 0);
     if (dist < bestDist || (dist === bestDist && align > bestAlign)) {
       bestDist = dist; bestAlign = align; best = key;
