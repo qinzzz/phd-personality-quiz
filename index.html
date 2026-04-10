@@ -383,54 +383,54 @@ const TYPES = {
 };
 
 const QS = [
-  { q:'距离论文提交还有三天，你在做什么？', opts:[
-    { text:'刚刚打开文档，开始进入状态', dims:{ time:1 } },
-    { text:'在核查每一条参考文献的格式是否正确', dims:{ time:-1, form:-1 } },
-    { text:'泡着茶，觉得还有三天呢，不急', dims:{ time:1, drive:-1 } }]},
-  { q:'下课后你最可能出现在哪里？', opts:[
-    { text:'实验室或自习室，哪也不去', dims:{ social:-1, home:1 } },
-    { text:'在别的课题组蹭咖啡，顺便打听消息', dims:{ social:1, drive:1 } },
-    { text:'导师让我去哪我就去哪', dims:{ drive:-1, social:-1 } }]},
-  { q:'毕业之后，你最理想的状态是？', opts:[
-    { text:'做自己的研究，超越导师', dims:{ drive:1, home:-1 } },
-    { text:'低调过日子，别人不用知道我在哪', dims:{ social:-1, home:-1 } },
-    { text:'留在校园里，挺好的', dims:{ home:1 } }]},
-  { q:'确定研究方向的时候，你是怎么做的？', opts:[
-    { text:'某天突然来了灵感，感觉这个很有意思', dims:{ drive:1, know:1 } },
-    { text:'先把PPT做出来，感觉方向就清晰了', dims:{ form:1 } },
-    { text:'翻了很多原始文献，从故纸堆里找到的', dims:{ know:-1, drive:1 } }]},
-  { q:'师兄发朋友圈说自己又发了一篇论文，你的反应是？', opts:[
-    { text:'给他点赞，然后继续喝我的枸杞水', dims:{ drive:-1, home:1 } },
-    { text:'关掉手机，我的截止日期是明天', dims:{ time:1 } },
-    { text:'心里默默盘算自己的成果已经比他多了', dims:{ drive:1 } }]},
-  { q:'你怎么看待"研究要有现实意义"这件事？', opts:[
-    { text:'引用三篇文献再来回答你这个问题', dims:{ form:-1, know:-1 } },
-    { text:'留在学校本身就是一种现实意义', dims:{ home:1 } },
-    { text:'意义是后来才发现的，选题靠直觉', dims:{ drive:1, know:-1 } }]},
-  { q:'组会上导师问"最近进展怎么样"，你怎么回答？', opts:[
-    { text:'按导师上次的意见做了，没问题', dims:{ drive:-1 } },
-    { text:'刚好在实验室，数据是这样的……', dims:{ form:-1, home:1 } },
-    { text:'打开精心制作的进展汇报PPT', dims:{ form:1 } }]},
-  { q:'导师在群里@你，你多久会回复？', opts:[
-    { text:'看到就回，但我不常出现在群里', dims:{ social:-1 } },
-    { text:'我在看古籍，等我看完这段', dims:{ know:-1, social:-1 } },
-    { text:'我一般替三个群回消息', dims:{ social:1 } }]},
-  { q:'朋友说你给人的感觉是？', opts:[
-    { text:'看不透，但感觉很厉害', dims:{ drive:1, social:-1 } },
-    { text:'很佛，什么都能想开', dims:{ drive:-1, home:1 } },
-    { text:'永远在赶稿，永远赶上了', dims:{ time:1 } }]},
-  { q:'开组会前一晚，你在做什么？', opts:[
-    { text:'做PPT，调字体调到凌晨', dims:{ form:1, time:1 } },
+  { q:'截止日期前三天，你的论文文档状态是？', opts:[
+    { text:'刚新建，文件名还叫"新建文档 (3)"', dims:{ time:1 } },
+    { text:'参考文献排得整整齐齐，正文还没动', dims:{ time:-1, form:-1 } },
+    { text:'茶已经泡好了，觉得还早得很', dims:{ time:1, drive:-1 } }]},
+  { q:'课题组群突然发消息"谁在楼里"，你的状态是？', opts:[
+    { text:'"我"。我从来没离开过。', dims:{ social:-1, home:1 } },
+    { text:'"我在隔壁组，马上！"', dims:{ social:1, drive:1 } },
+    { text:'导师让我去哪我就在哪（目前在路上）', dims:{ drive:-1, social:-1 } }]},
+  { q:'有人问你博士毕业想干嘛，你的内心独白是？', opts:[
+    { text:'冲出去！做自己的研究，超越导师！', dims:{ drive:1, home:-1 } },
+    { text:'能拖就拖，毕业了去哪啊……', dims:{ social:-1, home:-1 } },
+    { text:'能留校当然留校，这里挺好的', dims:{ home:1 } }]},
+  { q:'你是怎么确定研究方向的？', opts:[
+    { text:'某天灵光一闪，感觉这个很有意思就来了', dims:{ drive:1, know:1 } },
+    { text:'先做了十页PPT，方向就自然清晰了', dims:{ form:1 } },
+    { text:'在故纸堆里翻出来的，别人甚至没听说过这个领域', dims:{ know:-1, drive:1 } }]},
+  { q:'师兄在朋友圈晒新论文，配文"又水了一篇"，你？', opts:[
+    { text:'点赞，然后继续喝枸杞水，人生嘛', dims:{ drive:-1, home:1 } },
+    { text:'什么！他发完了？！我的截止日期是明天！', dims:{ time:1 } },
+    { text:'默默数了一下……我发的其实比他多', dims:{ drive:1 } }]},
+  { q:'"研究要有现实意义"——你的真实反应？', opts:[
+    { text:'请问您看过我列的那38篇参考文献吗', dims:{ form:-1, know:-1 } },
+    { text:'留在学校本身就很有意义（认真的）', dims:{ home:1 } },
+    { text:'意义都是事后编的，选题靠缘分', dims:{ drive:1, know:-1 } }]},
+  { q:'组会上导师问"最近进展怎么样"，你的标准回答是？', opts:[
+    { text:'"按您上次说的改了，您看看"', dims:{ drive:-1 } },
+    { text:'掏出手机直接给导师看数据图', dims:{ form:-1, home:1 } },
+    { text:'打开精心排版的进展汇报PPT', dims:{ form:1 } }]},
+  { q:'导师在群里@你，你的回复速度是？', opts:[
+    { text:'看到就回，但我很少在群里出现', dims:{ social:-1 } },
+    { text:'等我看完这段材料，马上', dims:{ know:-1, social:-1 } },
+    { text:'我同时在替三个群回消息', dims:{ social:1 } }]},
+  { q:'朋友形容你是什么样的人？', opts:[
+    { text:'"摸不透，但感觉很厉害"', dims:{ drive:1, social:-1 } },
+    { text:'"什么都能想开，比较佛"', dims:{ drive:-1, home:1 } },
+    { text:'"总是在赶稿，但总能赶上"', dims:{ time:1 } }]},
+  { q:'组会前一晚，你在干嘛？', opts:[
+    { text:'调PPT字体和行距，一调调到凌晨两点', dims:{ form:1, time:1 } },
     { text:'导师叫我准备什么我就准备什么', dims:{ drive:-1 } },
-    { text:'没什么特别准备，组会结束就好了', dims:{ social:-1, drive:-1 } }]},
-  { q:'有人问你在研究什么，你怎么回答？', opts:[
-    { text:'先说"你坐下"，因为要讲很久', dims:{ know:-1, drive:1 } },
-    { text:'说不清楚，方向还在探索中', dims:{ drive:1 } },
-    { text:'在图书馆，没时间细说', dims:{ home:1, social:-1 } }]},
-  { q:'你手机通讯录里，认识几个其他课题组的人？', opts:[
-    { text:'整层楼都认识', dims:{ social:1, home:1 } },
-    { text:'我就想留在这个校园里，认识谁不重要', dims:{ home:1, social:-1 } },
-    { text:'我的文献数据库联系人比通讯录还多', dims:{ know:-1, social:-1 } }]},
+    { text:'没啥特别准备，组会嘛，撑过去就好', dims:{ social:-1, drive:-1 } }]},
+  { q:'别人问你在研究什么，你的第一反应？', opts:[
+    { text:'招手示意对方坐下——"这个说来话长……"', dims:{ know:-1, drive:1 } },
+    { text:'"还在探索中"（已探索两年半）', dims:{ drive:1 } },
+    { text:'"在图书馆呢，改天说"', dims:{ home:1, social:-1 } }]},
+  { q:'你认识几个其他课题组的人？', opts:[
+    { text:'整层楼都认识，隔壁导师的咖啡口味我都知道', dims:{ social:1, home:1 } },
+    { text:'校园就是我家，认识谁不重要', dims:{ home:1, social:-1 } },
+    { text:'我的文献库联系人比手机通讯录还多', dims:{ know:-1, social:-1 } }]},
 ];
 
 const LABELS = ['A','B','C'];
