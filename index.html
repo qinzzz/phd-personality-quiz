@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>博士人格图鉴 · 12种濒危物种</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f9f9f7; color: #1a1a1a; min-height: 100vh; }
+.wrap { max-width: 620px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+.hd { text-align: center; margin-bottom: 2rem; }
+.hd .sub { font-size: 12px; color: #888; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.hd h1 { font-family: 'Noto Serif SC', 'SimSun', serif; font-size: 24px; font-weight: 500; line-height: 1.4; }
+.prog-bg { height: 2px; background: #e5e5e5; border-radius: 2px; margin-bottom: 2rem; overflow: hidden; }
+.prog-fill { height: 100%; background: #534AB7; border-radius: 2px; transition: width 0.4s ease; }
+.qcard { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+.qnum { font-size: 12px; color: #aaa; margin-bottom: 0.4rem; letter-spacing: 0.04em; }
+.qtext { font-family: 'Noto Serif SC', 'SimSun', serif; font-size: 17px; font-weight: 500; line-height: 1.65; margin-bottom: 1.25rem; }
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt { display: block; width: 100%; text-align: left; padding: 11px 14px; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; line-height: 1.5; transition: transform 0.1s; background: #f5f5f3; border: 0.5px solid #e0e0e0; color: #1a1a1a; }
+.opt:hover { background: #eeeeeb; }
+.opt:active { transform: scale(0.99); }
+.opt.selected { background: #EEEDFE; border: 1.5px solid #534AB7; color: #26215C; }
+.navrow { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; }
+.nbtn { padding: 9px 22px; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; border: 0.5px solid #ccc; background: #fff; color: #1a1a1a; transition: background 0.15s, transform 0.1s; }
+.nbtn:hover { background: #f5f5f3; }
+.nbtn:active { transform: scale(0.98); }
+.nbtn:disabled { opacity: 0.3; cursor: default; }
+.nbtn.pri { background: #534AB7; color: #EEEDFE; border-color: #534AB7; }
+.nbtn.pri:hover { background: #3C3489; border-color: #3C3489; }
+.nbtn.pri:disabled { background: #f0f0f0; color: #aaa; border-color: #e0e0e0; }
+.qct { font-size: 13px; color: #aaa; }
+
+.reveal-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+.dim-section-title { font-size: 12px; color: #aaa; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+.dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.dim-card { background: #f5f5f3; border-radius: 8px; padding: 10px 12px; }
+.dim-label { font-size: 11px; color: #aaa; margin-bottom: 4px; }
+.dim-bar-row { display: flex; align-items: center; gap: 8px; }
+.dim-pole-l { font-size: 12px; color: #888; width: 48px; text-align: right; flex-shrink: 0; }
+.dim-pole-r { font-size: 12px; color: #888; width: 48px; text-align: left; flex-shrink: 0; }
+.dim-track { flex: 1; height: 4px; background: #ddd; border-radius: 2px; position: relative; }
+.dim-dot { position: absolute; top: 50%; width: 10px; height: 10px; background: #534AB7; border-radius: 50%; transform: translate(-50%, -50%); }
+.dim-value { font-size: 13px; font-weight: 500; color: #3C3489; margin-top: 4px; text-align: center; }
+
+.reveal-arrow { text-align: center; font-size: 20px; color: #ccc; margin: 0.5rem 0; }
+
+.res-hero { text-align: center; padding: 1.5rem 0 0; }
+.res-pretitle { font-size: 11px; color: #aaa; letter-spacing: 0.12em; margin-bottom: 1.5rem; }
+.res-emoji-wrap { position: relative; display: inline-block; margin-bottom: 1rem; }
+.res-emoji { font-size: 64px; display: block; line-height: 1; }
+.res-glow { position: absolute; inset: -8px; border-radius: 50%; background: #EEEDFE; z-index: -1; }
+.res-name { font-family: 'Noto Serif SC', 'SimSun', serif; font-size: 30px; font-weight: 500; margin-bottom: 0.75rem; }
+.res-desc { font-size: 15px; line-height: 1.8; color: #555; max-width: 440px; margin: 0 auto 2rem; }
+.res-special { display: inline-block; font-size: 11px; background: #EEEDFE; color: #3C3489; border-radius: 8px; padding: 3px 10px; margin-bottom: 0.75rem; letter-spacing: 0.06em; }
+
+.restart-row { text-align: center; margin-top: 1.5rem; }
+.rbtn { padding: 10px 28px; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; border: 0.5px solid #ccc; background: #fff; color: #1a1a1a; transition: background 0.15s; }
+.rbtn:hover { background: #f5f5f3; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const DIMS = [
+  { id:'drive',  label:'学术动力',  neg:'外驱型', pos:'内燃型', negDesc:'有人推才动', posDesc:'自己点火' },
+  { id:'social', label:'社交半径',  neg:'独行侠', pos:'人脉王', negDesc:'一个人够了', posDesc:'认识全楼' },
+  { id:'time',   label:'时间哲学',  neg:'提前派', pos:'DDL派', negDesc:'早做早安心', posDesc:'最后冲刺' },
+  { id:'form',   label:'形式偏好',  neg:'实质派', pos:'颜值派', negDesc:'内容是一切', posDesc:'先让它好看' },
+  { id:'home',   label:'校园感情',  neg:'出走派', pos:'永居派', negDesc:'外面更精彩', posDesc:'校园就是家' },
+  { id:'know',   label:'知识品味',  neg:'前沿派', pos:'考古派', negDesc:'昨天都嫌旧', posDesc:'越老越香' },
+];
+
+const TYPES = {
+  nail:   { emoji:'🦴', name:'实验室钉子户',   desc:'不清楚外面是晴是雨，只知道离心机转没转完。宿舍是用来存衣服的，办公室才是家。同学问"你今天出去了吗"，你反问"出去干什么"。',
+            dims:{ drive:1, social:-1, time:-1, form:-1, home:1, know:1 } },
+  cite:   { emoji:'📊', name:'引用强迫症患者', desc:'参考文献格式比论文本身更完美。看到别人引用不规范会生理不适。每个论断后面跟三个注释，注释比正文还长。',
+            dims:{ drive:1, social:-1, time:-1, form:-1, home:-1, know:-1 } },
+  ddl:    { emoji:'🚒', name:'DDL救火队长',    desc:'平时神龙见首不见尾，截止日期前48小时原地变成超人。从不提前，但也从不真的迟到。靠肾上腺素驱动的学术生命体。',
+            dims:{ drive:-1, social:-1, time:1, form:-1, home:-1, know:1 } },
+  ppt:    { emoji:'🤡', name:'PPT美学大师',    desc:'组会PPT配色和排版无可挑剔，内容区域留有大量"战略性空白"。导师看完说"做得很好看"，然后陷入沉默。',
+            dims:{ drive:-1, social:1, time:1, form:1, home:-1, know:1 } },
+  dragon: { emoji:'🐉', name:'弑师型天才',     desc:'研究方向已经超过导师本人，开组会时会出现导师记笔记的罕见场景。论文致谢写得情真意切，因为确实全靠自己。',
+            dims:{ drive:1, social:-1, time:-1, form:-1, home:-1, know:1 } },
+  ghost:  { emoji:'👻', name:'量子隐身人',     desc:'导师半年没见过真人，只在提交材料时感知到你的存在。毕业答辩时评委觉得你面善，想不起在哪见过——其实是三年前迎新合影。',
+            dims:{ drive:-1, social:-1, time:1, form:-1, home:1, know:-1 } },
+  zen:    { emoji:'🧘', name:'佛系养生学者',   desc:'枸杞保温杯不离手，科研随缘。相信"急什么，论文又跑不掉"。偶尔发朋友圈："科研嘛，慢慢来。"配图是今天煮的红豆薏米水。',
+            dims:{ drive:-1, social:1, time:1, form:-1, home:1, know:-1 } },
+  spy:    { emoji:'🕵️', name:'跨组神秘客',    desc:'同时出没于三个课题组，谁也说不清你到底属于哪里。左手要到A组的试剂，右手借到B组的设备。学术界的外交官。',
+            dims:{ drive:1, social:1, time:1, form:1, home:1, know:1 } },
+  scroll: { emoji:'📜', name:'古籍续命人',     desc:'研究方向是某个99%的人没听说过的古代文人或版本问题。跟别人介绍课题需要先铺垫二十分钟背景知识。硬盘里存着扫描质量堪忧的古籍PDF，爱之如命。',
+            dims:{ drive:1, social:-1, time:-1, form:-1, home:1, know:-1 } },
+  vibe:   { emoji:'🎲', name:'玄学选题派',     desc:'研究方向跟着感觉走，方法论"后面再说"。旁人问研究什么，你说"还在探索中"——已经探索了两年半。',
+            dims:{ drive:1, social:1, time:1, form:1, home:-1, know:-1 } },
+  flow:   { emoji:'🌊', name:'随遇而安好同志', desc:'导师叫干啥干啥，从不多问为什么。是组里最省心的存在。毕业论文致谢第一句永远是"感谢导师的悉心指导"，而且是真心的。',
+            dims:{ drive:-1, social:1, time:-1, form:-1, home:1, know:-1 } },
+  school: { emoji:'🏫', name:'命中注定留校人', desc:'你从未真正离开过校园。读完本科读硕士，读完硕士读博士，读完博士……还在校园。这不是逃避社会，这是与校园的双向奔赴。恭喜你，找到了人生使命。或者说，学校找到了你。',
+            dims:{ drive:-1, social:1, time:-1, form:1, home:1, know:-1 }, special:true },
+};
+
+const QS = [
+  { q:'距离论文提交还有三天，你在做什么？', opts:[
+    { text:'刚刚打开文档，开始进入状态', dims:{ time:1 } },
+    { text:'在核查每一条参考文献的格式是否正确', dims:{ time:-1, form:-1 } },
+    { text:'泡着茶，觉得还有三天呢，不急', dims:{ time:1, drive:-1 } }]},
+  { q:'下课后你最可能出现在哪里？', opts:[
+    { text:'实验室或自习室，哪也不去', dims:{ social:-1, home:1 } },
+    { text:'在别的课题组蹭咖啡，顺便打听消息', dims:{ social:1, drive:1 } },
+    { text:'导师让我去哪我就去哪', dims:{ drive:-1, social:-1 } }]},
+  { q:'毕业之后，你最理想的状态是？', opts:[
+    { text:'做自己的研究，超越导师', dims:{ drive:1, home:-1 } },
+    { text:'低调过日子，别人不用知道我在哪', dims:{ social:-1, home:-1 } },
+    { text:'留在校园里，挺好的', dims:{ home:1 } }]},
+  { q:'确定研究方向的时候，你是怎么做的？', opts:[
+    { text:'某天突然来了灵感，感觉这个很有意思', dims:{ drive:1, know:1 } },
+    { text:'先把PPT做出来，感觉方向就清晰了', dims:{ form:1 } },
+    { text:'翻了很多原始文献，从故纸堆里找到的', dims:{ know:-1, drive:1 } }]},
+  { q:'师兄发朋友圈说自己又发了一篇论文，你的反应是？', opts:[
+    { text:'给他点赞，然后继续喝我的枸杞水', dims:{ drive:-1, home:1 } },
+    { text:'关掉手机，我的截止日期是明天', dims:{ time:1 } },
+    { text:'心里默默盘算自己的成果已经比他多了', dims:{ drive:1 } }]},
+  { q:'你怎么看待"研究要有现实意义"这件事？', opts:[
+    { text:'引用三篇文献再来回答你这个问题', dims:{ form:-1, know:-1 } },
+    { text:'留在学校本身就是一种现实意义', dims:{ home:1 } },
+    { text:'意义是后来才发现的，选题靠直觉', dims:{ drive:1, know:-1 } }]},
+  { q:'组会上导师问"最近进展怎么样"，你怎么回答？', opts:[
+    { text:'按导师上次的意见做了，没问题', dims:{ drive:-1 } },
+    { text:'刚好在实验室，数据是这样的……', dims:{ form:-1, home:1 } },
+    { text:'打开精心制作的进展汇报PPT', dims:{ form:1 } }]},
+  { q:'导师在群里@你，你多久会回复？', opts:[
+    { text:'看到就回，但我不常出现在群里', dims:{ social:-1 } },
+    { text:'我在看古籍，等我看完这段', dims:{ know:-1, social:-1 } },
+    { text:'我一般替三个群回消息', dims:{ social:1 } }]},
+  { q:'朋友说你给人的感觉是？', opts:[
+    { text:'看不透，但感觉很厉害', dims:{ drive:1, social:-1 } },
+    { text:'很佛，什么都能想开', dims:{ drive:-1, home:1 } },
+    { text:'永远在赶稿，永远赶上了', dims:{ time:1 } }]},
+  { q:'开组会前一晚，你在做什么？', opts:[
+    { text:'做PPT，调字体调到凌晨', dims:{ form:1, time:1 } },
+    { text:'导师叫我准备什么我就准备什么', dims:{ drive:-1 } },
+    { text:'没什么特别准备，组会结束就好了', dims:{ social:-1, drive:-1 } }]},
+  { q:'有人问你在研究什么，你怎么回答？', opts:[
+    { text:'先说"你坐下"，因为要讲很久', dims:{ know:-1, drive:1 } },
+    { text:'说不清楚，方向还在探索中', dims:{ drive:1 } },
+    { text:'在图书馆，没时间细说', dims:{ home:1, social:-1 } }]},
+  { q:'你手机通讯录里，认识几个其他课题组的人？', opts:[
+    { text:'整层楼都认识', dims:{ social:1, home:1 } },
+    { text:'我就想留在这个校园里，认识谁不重要', dims:{ home:1, social:-1 } },
+    { text:'我的文献数据库联系人比通讯录还多', dims:{ know:-1, social:-1 } }]},
+];
+
+const LABELS = ['A','B','C'];
+let cur = 0, answers = [], dimScores = {};
+DIMS.forEach(d => dimScores[d.id] = 0);
+
+function applyDims(idx, sign) {
+  const dims = QS[cur].opts[idx].dims;
+  Object.entries(dims).forEach(([k,v]) => dimScores[k] += sign * v);
+}
+
+function getResult() {
+  const userVec = DIMS.map(d => dimScores[d.id] >= 0 ? 1 : -1);
+  let best = null, bestDist = 99;
+  Object.entries(TYPES).forEach(([key, t]) => {
+    const typeVec = DIMS.map(d => t.dims[d.id]);
+    const dist = userVec.reduce((acc, v, i) => acc + (v !== typeVec[i] ? 1 : 0), 0);
+    if (dist < bestDist) { bestDist = dist; best = key; }
+  });
+  return best;
+}
+
+function render() {
+  const q = QS[cur];
+  const sel = answers[cur];
+  const pct = Math.round((cur / QS.length) * 100);
+  document.getElementById('app').innerHTML = `
+    <div class="hd">
+      <div class="sub">博士人格图鉴 · 12种濒危物种</div>
+      <h1>测测你是哪种博士生</h1>
+    </div>
+    <div class="prog-bg"><div class="prog-fill" style="width:${pct}%"></div></div>
+    <div class="qcard">
+      <div class="qnum">Q${cur+1} / ${QS.length}</div>
+      <div class="qtext">${q.q}</div>
+      <div class="opts">
+        ${q.opts.map((o,i) => `<button class="opt${sel===i?' selected':''}" data-i="${i}">${LABELS[i]}. ${o.text}</button>`).join('')}
+      </div>
+    </div>
+    <div class="navrow">
+      <button class="nbtn" id="prev" ${cur===0?'disabled':''}>← 上一题</button>
+      <span class="qct">${cur+1} / ${QS.length}</span>
+      ${cur < QS.length-1
+        ? `<button class="nbtn pri" id="next" ${sel===undefined?'disabled':''}>下一题 →</button>`
+        : `<button class="nbtn pri" id="sub" ${sel===undefined?'disabled':''}>查看结果 →</button>`}
+    </div>`;
+
+  document.querySelectorAll('.opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.dataset.i);
+      if (answers[cur] !== undefined) applyDims(answers[cur], -1);
+      answers[cur] = i;
+      applyDims(i, 1);
+      render();
+    });
+  });
+  const p = document.getElementById('prev');
+  if (p) p.addEventListener('click', () => { cur--; render(); });
+  const n = document.getElementById('next');
+  if (n) n.addEventListener('click', () => { cur++; render(); });
+  const s = document.getElementById('sub');
+  if (s) s.addEventListener('click', renderResult);
+}
+
+function renderResult() {
+  const key = getResult();
+  const t = TYPES[key];
+  const dimRows = DIMS.map(d => {
+    const raw = dimScores[d.id];
+    const pct = Math.min(Math.max(Math.round((raw + 6) / 12 * 100), 5), 95);
+    const chosen = raw >= 0 ? d.pos : d.neg;
+    const chosenDesc = raw >= 0 ? d.posDesc : d.negDesc;
+    return `
+      <div class="dim-card">
+        <div class="dim-label">${d.label}</div>
+        <div class="dim-bar-row">
+          <span class="dim-pole-l">${d.neg}</span>
+          <div class="dim-track"><div class="dim-dot" style="left:${pct}%"></div></div>
+          <span class="dim-pole-r">${d.pos}</span>
+        </div>
+        <div class="dim-value">${chosen} · ${chosenDesc}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('app').innerHTML = `
+    <div class="hd">
+      <div class="sub">测试结果</div>
+      <h1>你的博士人格画像</h1>
+    </div>
+    <div class="reveal-card">
+      <div class="dim-section-title">六维度分析</div>
+      <div class="dim-grid">${dimRows}</div>
+    </div>
+    <div class="reveal-arrow">↓</div>
+    <div class="res-hero">
+      ${t.special ? '<div class="res-special">⭐ 隐藏类型解锁</div>' : ''}
+      <div class="res-pretitle">综合你的六维画像，你是……</div>
+      <div class="res-emoji-wrap">
+        <div class="res-glow"></div>
+        <span class="res-emoji">${t.emoji}</span>
+      </div>
+      <div class="res-name">${t.name}</div>
+      <div class="res-desc">${t.desc}</div>
+    </div>
+    <div class="restart-row">
+      <button class="rbtn" id="restart">重新测试</button>
+    </div>`;
+
+  document.getElementById('restart').addEventListener('click', () => {
+    cur = 0; answers = [];
+    DIMS.forEach(d => dimScores[d.id] = 0);
+    render();
+  });
+}
+
+render();
+</script>
+</body>
+</html>
