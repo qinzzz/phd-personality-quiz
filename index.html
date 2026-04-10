@@ -443,11 +443,15 @@ function applyDims(idx, sign) {
 }
 
 function getResult() {
-  const userVec = DIMS.map(d => dimScores[d.id] >= 0 ? 1 : -1);
-  let best = null, bestDist = 99;
+  let best = null, bestDist = Infinity;
   Object.entries(TYPES).forEach(([key, t]) => {
-    const typeVec = DIMS.map(d => t.dims[d.id]);
-    const dist = userVec.reduce((acc, v, i) => acc + (v !== typeVec[i] ? 1 : 0), 0);
+    // Distance = sum of magnitudes where user score goes against the type's direction.
+    // Near-zero scores contribute little; strong opposing scores contribute a lot.
+    const dist = DIMS.reduce((acc, d) => {
+      const score = dimScores[d.id];
+      const target = t.dims[d.id]; // +1 or -1
+      return acc + (score * target < 0 ? Math.abs(score) : 0);
+    }, 0);
     if (dist < bestDist) { bestDist = dist; best = key; }
   });
   return best;
